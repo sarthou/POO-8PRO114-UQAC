@@ -3,15 +3,17 @@
 #ifndef STADE_H
 #define STADE_H
 
+#include <cstdlib>
+#include <string>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 enum qualite_terrain_t
 {
 	gazon,
 	tartan,
 	inconnu
 };
-
-#include <cstdlib>
-#include <string>
 
 class Stade
 {
@@ -34,6 +36,14 @@ public:
 	bool operator!=(Stade const& b);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_capacite;
+		ar & m_qualite_terrain;
+		ar & m_nom;
+		ar & m_adresse;
+	}
 	int m_capacite;
 	qualite_terrain_t m_qualite_terrain;
 	std::string m_nom;

@@ -2,6 +2,8 @@
 
 #include <string>
 #include "../Utility/Date.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 #ifndef REGLEMENT_H
 #define REGLEMENT_H
@@ -26,6 +28,15 @@ public:
 	float get_montant_restant() { return m_montant_restant; };
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_seuil_en_vigueur;
+		ar & m_description_droits;
+		ar & m_montant_transfert;
+		ar & m_montant_encaisse;
+		ar & m_montant_restant;
+	}
 	int m_seuil_en_vigueur;
 	string m_description_droits;
 	float m_montant_transfert;

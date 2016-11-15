@@ -16,6 +16,9 @@
 #include "Contrat\Contrat.h"
 #include "Contrat\Rupture.h"
 
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
 using std::string;
 
 class Club
@@ -113,6 +116,24 @@ public:
 	bool operator>=(Club const& b) const;
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_histoire;
+		ar & m_nom;
+		ar & m_couleur;
+		ar & m_ville;
+		ar & m_adresse;
+		ar & m_date_creation;
+		ar & m_stade;
+		ar & m_staff;
+		ar & m_entraineur;
+		
+		ar & m_effectif;
+		ar & m_palmares;
+		ar & m_contrats;
+		ar & m_ruptures;
+	}
 	string m_histoire;
 	string m_nom;
 	string m_couleur;

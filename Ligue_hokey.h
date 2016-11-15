@@ -9,6 +9,11 @@
 #include "Club.h"
 #include "Ecrans\Ecran.h"
 #include "Matchs\Rencontre.h"
+#include "Utility\export.h"
+
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/vector.hpp>
 
 class Ligue_hokey
 {
@@ -36,8 +41,15 @@ public:
 	void run();
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_clubs;
+		ar & m_calendrier;
+	}
+
 	std::vector<Club*> m_clubs;
-	std::vector<Rencontre*> m_calendrier; //TODO
+	std::vector<Rencontre*> m_calendrier; 
 	action_detail_t m_next_action;
 	Club* club_a_etudier;
 

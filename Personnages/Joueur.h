@@ -8,6 +8,8 @@
 #include <vector>
 #include "Personne.h"
 #include "..\Utility\Parcours.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 using std::string;
 
@@ -48,6 +50,14 @@ public:
 	bool operator!=(Joueur const& b);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Personne>(*this);
+		ar & m_taille;
+		ar & m_poids;
+		ar & m_parcours;
+	}
 	float m_taille;
 	float m_poids;
 	std::vector<Parcours*> m_parcours;
@@ -66,6 +76,12 @@ public:
 
 	bool peut_rompre_contrat() { return true; };
 	bool est_autonome() { return true; };
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Joueur>(*this);
+	}
 };
 
 #endif

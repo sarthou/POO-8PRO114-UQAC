@@ -3,29 +3,44 @@
 Date::Date()
 {
 	set_at_current_time(&m_date);
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
 }
 
 Date::Date(struct tm p_date)
 {
 	m_date = p_date;
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
 }
 
 Date::Date(int p_annee)
 {
 	set_at_current_time(&m_date);
 	set_date(p_annee);
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
 }
 
 Date::Date(int p_annee, int p_mois)
 {
 	set_at_current_time(&m_date);
 	set_date(p_annee, p_mois);
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
 }
 
 Date::Date(int p_annee, int p_mois, int p_jour)
 {
 	set_at_current_time(&m_date);
 	set_date(p_annee, p_mois, p_jour);
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
 }
 
 Date::~Date()
@@ -33,22 +48,44 @@ Date::~Date()
 
 }
 
+struct tm Date::get_date()
+{ 
+	m_date.tm_year = m_annee;
+	m_date.tm_mon = m_mois;
+	m_date.tm_mday = m_jour;
+	return m_date; 
+}
+
+void Date::set_date(struct tm p_date)
+{ 
+	m_date = p_date; 
+	m_annee = m_date.tm_year;
+	m_mois = m_date.tm_mon;
+	m_jour = m_date.tm_mday;
+};
+
 void Date::set_date(int p_annee)
 {
 	m_date.tm_year = p_annee;
+	m_annee = m_date.tm_year;
 }
 
 void Date::set_date(int p_annee, int p_mois)
 {
 	m_date.tm_year = p_annee;
+	m_annee = m_date.tm_year;
 	m_date.tm_mon = p_mois;
+	m_mois = m_date.tm_mon;
 }
 
 void Date::set_date(int p_annee, int p_mois, int p_jour)
 {
 	m_date.tm_year = p_annee;
+	m_annee = m_date.tm_year;
 	m_date.tm_mon = p_mois;
+	m_mois = m_date.tm_mon;
 	m_date.tm_mday = p_jour;
+	m_jour = m_date.tm_mday;
 }
 
 bool Date::operator==(Date const& b) const

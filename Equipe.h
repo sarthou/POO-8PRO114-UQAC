@@ -5,6 +5,8 @@
 
 #include "Club.h"
 #include "Personnages\Joueur.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 class Equipe
 {
@@ -24,6 +26,14 @@ public:
 	void set_nb_joueurs(int p_nb_joueur = -1);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_club_ref;
+		ar & m_capitaine;
+		ar & m_nb_gardiens;
+		ar & m_nb_joueurs_terrain;
+	}
 	Club* m_club_ref;
 	Joueur* m_capitaine;
 	int m_nb_gardiens;

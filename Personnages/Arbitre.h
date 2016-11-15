@@ -5,6 +5,8 @@
 
 #include "Joueur.h"
 #include <string>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 using std::string;
 
@@ -23,6 +25,13 @@ public:
 	int get_experience() { return m_expérience; };
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Joueur>(*this);
+		ar & m_lieu_obtention;
+		ar & m_expérience;
+	}
 	string m_lieu_obtention;
 	int m_expérience;
 };

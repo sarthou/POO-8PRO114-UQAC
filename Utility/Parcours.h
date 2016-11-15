@@ -5,6 +5,8 @@
 
 #include "Date.h"
 #include <string>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 class Parcours
 {
@@ -31,6 +33,12 @@ public:
 	bool operator!=(Parcours const& b) const;
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_date_passage;
+		ar & m_nom_club;
+	}
 	Date m_date_passage;
 	std::string m_nom_club;
 

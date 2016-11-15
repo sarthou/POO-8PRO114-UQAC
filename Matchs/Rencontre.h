@@ -6,12 +6,15 @@
 #include "..\Utility\Date.h"
 #include "Match.h"
 #include "..\Personnages\Arbitre.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 class Club;
 
 class Rencontre
 {
 public:
+	Rencontre();
 	Rencontre(Club* p_club_local, Club* p_club_adverse, struct tm p_date, Arbitre* p_arbitre = nullptr);
 	~Rencontre();
 
@@ -33,6 +36,15 @@ public:
 	static Rencontre* get_prochaine_rencontre(std::vector<Rencontre*> p_rencontres);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_date;
+		ar & m_club_local;
+		ar & m_club_adverse;
+		ar & m_match;
+		ar & m_arbitre;
+	}
 	Date m_date;
 	Club* m_club_local;
 	Club* m_club_adverse;

@@ -8,6 +8,14 @@ Rencontre::Rencontre(Club* p_club_local, Club* p_club_adverse, struct tm p_date,
 	m_match = nullptr;
 }
 
+Rencontre::Rencontre() : m_date()
+{
+	m_club_local = nullptr;
+	m_club_adverse = nullptr;
+	m_arbitre = nullptr;
+	m_match = nullptr;
+}
+
 Rencontre::~Rencontre()
 {
 	delete m_match;

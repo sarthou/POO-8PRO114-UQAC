@@ -6,6 +6,8 @@
 #include "..\Equipe.h"
 #include "Periode.h"
 #include <vector>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 class Club;
 class Joueur;
@@ -14,12 +16,20 @@ typedef struct
 {
 	int nb_but_local;
 	int nb_but_adverse;
+private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive &ar, const unsigned int version)
+	{
+		ar & nb_but_local;
+		ar & nb_but_adverse;
+	}
 }Resultat;
 
 class Match
 {
 public:
-	Match(Club* p_club_local, Club* p_club_adverse);
+	Match(Club* p_club_local = nullptr, Club* p_club_adverse = nullptr);
 	~Match();
 
 	void set_equipe_locale(Equipe p_equipe) { m_equipe_locale = p_equipe; };
@@ -44,6 +54,14 @@ public:
 	int get_nb_periode() const { return m_periodes.size(); };
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_resultat;
+		ar & m_equipe_locale;
+		ar & m_equipe_adverse;
+		ar & m_periodes;
+	}
 	Resultat m_resultat;
 	Equipe m_equipe_locale;
 	Equipe m_equipe_adverse;

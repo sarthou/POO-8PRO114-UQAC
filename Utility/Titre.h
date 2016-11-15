@@ -6,6 +6,9 @@
 #include <cstdlib>
 #include <string>
 #include "Palmares.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/base_object.hpp>
 
 class Club;
 
@@ -20,6 +23,12 @@ public:
 	~Titre();
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Palmares>(*this);
+		ar & m_club;
+	}
 	Club* m_club;
 };
 

@@ -6,6 +6,9 @@
 #include <cstdlib>
 #include <string>
 #include "Personne.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/base_object.hpp>
 
 enum role_t
 {
@@ -35,6 +38,12 @@ public:
 	bool operator!=(Staff const& b);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Personne>(*this);
+		ar & m_role;
+	}
 	role_t m_role;
 
 	bool estEgal(Staff b) const;

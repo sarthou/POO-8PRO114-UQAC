@@ -2,6 +2,8 @@
 
 #include <cstdlib>
 #include <string>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 #ifndef PERSONNE_H
 #define PERSONNE_H
@@ -26,6 +28,14 @@ public:
 	void set_ville_naissance(std::string p_ville) { m_ville_naissance = p_ville; };
 
 protected:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_nom;
+		ar & m_prenom;
+		ar & m_age;
+		ar & m_ville_naissance;
+	}
 	std::string m_nom;
 	std::string m_prenom;
 	uint8_t m_age;

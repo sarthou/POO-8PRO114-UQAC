@@ -9,6 +9,9 @@
 #include "Staff.h"
 #include "../Utility/Titre.h"
 #include "../Utility/Date.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/base_object.hpp>
 
 class Entraineur : public Staff
 {
@@ -45,6 +48,13 @@ public:
 	bool operator>=(Entraineur const& b);
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Staff>(*this);
+		ar & m_lieu_obtention_grade;
+		ar & m_titres;
+	}
 	std::string m_lieu_obtention_grade;
 	std::vector<Titre*> m_titres;
 

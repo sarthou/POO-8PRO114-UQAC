@@ -4,6 +4,8 @@
 #define JOUEUR_NON_AUTO_H
 
 #include "Joueur.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 using std::string;
 
@@ -28,6 +30,13 @@ public :
 	bool est_autonome() { return false; };
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & boost::serialization::base_object<Joueur>(*this);
+		ar & m_nb_annee_totale;
+		ar & m_nb_annee_cumules;
+	}
 	int m_nb_annee_totale;
 	int m_nb_annee_cumules;
 };

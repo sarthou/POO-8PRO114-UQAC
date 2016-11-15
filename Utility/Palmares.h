@@ -6,6 +6,8 @@
 #include <cstdlib>
 #include <string>
 #include "Date.h"
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
 
 enum titre_t
 {
@@ -38,6 +40,13 @@ public:
 	bool operator!=(Palmares const& b) const;
 
 private:
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive & ar, const unsigned int version) {
+		ar & m_titre;
+		ar & m_nom;
+		ar & m_date;
+	}
 	titre_t m_titre;
 	std::string m_nom;
 	Date m_date;
