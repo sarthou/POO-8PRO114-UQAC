@@ -20,7 +20,7 @@ public:
 	Joueur(string p_nom, uint8_t p_age, string p_ville = "");
 	Joueur(string p_nom, string p_prenom, uint8_t p_age, float p_taille, float p_poids = 0.);
 	Joueur(string p_nom, string p_prenom = "", uint8_t p_age = 0, string p_ville = "", float p_taille = 0., float p_poids = 0.);
-	~Joueur();
+	virtual ~Joueur();
 
 	float get_taille() const { return m_taille; };
 	float get_poids() const { return m_poids; };
@@ -53,6 +53,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & boost::serialization::base_object<Personne>(*this);
 		ar & m_taille;
 		ar & m_poids;
@@ -72,7 +73,7 @@ public:
 	Joueur_auto(string p_nom, uint8_t p_age, string p_ville = "") : Joueur(p_nom, p_age, p_ville) {};
 	Joueur_auto(string p_nom, string p_prenom, uint8_t p_age, float p_taille, float p_poids = 0.) : Joueur(p_nom, p_prenom, p_age, p_taille, p_poids) {};
 	Joueur_auto(string p_nom, string p_prenom = "", uint8_t p_age = 0, string p_ville = "", float p_taille = 0., float p_poids = 0.) : Joueur(p_nom, p_prenom, p_age, p_ville, p_taille, p_poids) {};
-	~Joueur_auto() {};
+	virtual ~Joueur_auto() {};
 
 	bool peut_rompre_contrat() { return true; };
 	bool est_autonome() { return true; };
@@ -80,6 +81,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & boost::serialization::base_object<Joueur>(*this);
 	}
 };

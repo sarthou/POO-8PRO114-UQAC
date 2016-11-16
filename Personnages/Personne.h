@@ -14,7 +14,7 @@ public:
 	Personne();
 	Personne(std::string p_nom, uint8_t p_age, std::string p_ville = "");
 	Personne(std::string p_nom, std::string p_prenom = "", uint8_t p_age = 0, std::string p_ville = "");
-	~Personne();
+	virtual ~Personne();
 
 	std::string get_nom() const { return m_nom; };
 	std::string get_prenom() const { return m_prenom; };
@@ -31,6 +31,7 @@ protected:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & m_nom;
 		ar & m_prenom;
 		ar & m_age;

@@ -33,6 +33,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & boost::serialization::base_object<Joueur>(*this);
 		ar & m_nb_annee_totale;
 		ar & m_nb_annee_cumules;

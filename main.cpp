@@ -8,18 +8,21 @@
 #include <fstream>
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
+#include "Utility\export.h"
 
-//#define BOOST_ALL_NO_LIB
+#define BOOST_ALL_NO_LIB
 
 int main()
 {
 	Ligue_hokey ligue;
 
-	std::ifstream ifs("fichierDeSerialisation.txt");
-	if (ifs.is_open())
 	{
-		boost::archive::text_iarchive ia(ifs);
-		ia >> ligue;
+		std::ifstream ifs("fichierDeSerialisation.txt");
+		if (ifs.is_open())
+		{
+			boost::archive::text_iarchive ia(ifs);
+			ia >> ligue;
+		}
 	}
 	
 	ligue.run();

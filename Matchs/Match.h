@@ -21,6 +21,7 @@ private:
 	template<class Archive>
 	void serialize(Archive &ar, const unsigned int version)
 	{
+	    (void)version;
 		ar & nb_but_local;
 		ar & nb_but_adverse;
 	}
@@ -57,6 +58,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+		(void)version;
 		ar & m_resultat;
 		ar & m_equipe_locale;
 		ar & m_equipe_adverse;

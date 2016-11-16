@@ -76,6 +76,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & boost::serialization::base_object<Structure_administrative>(*this);
 		ar & boost::serialization::base_object<Regroupement_sportif>(*this);
 		ar & m_couleur;

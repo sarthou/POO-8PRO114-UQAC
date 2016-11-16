@@ -61,7 +61,7 @@ public:
 	static void afficher_match(Match* p_match);
 	static void afficher_match(std::vector<Rencontre*> p_rencontres);
 
-	static int Affichage::afficher_entraineur_complet(Entraineur* entraineur);
+	static int afficher_entraineur_complet(Entraineur* entraineur);
 
 	static void afficher_statistiques(Club* p_club_titre, Entraineur* p_enraineur_titre);
 

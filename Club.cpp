@@ -150,6 +150,7 @@ void Club::add_rupture(Rupture* p_rupture)
 
 void Club::add_rupture(Joueur* p_joueur, Club* p_club, float p_penelite, string p_raison)
 {
+	(void)p_club;
 	Rupture* tmp = new Rupture(p_joueur, this, p_penelite, p_raison);
 	add_rupture(tmp);
 }

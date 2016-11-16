@@ -38,6 +38,7 @@ action_detail_t Ecran::ecran_club(Club* p_club)
 	Affichage::afficher_clubs_complet(p_club);
 
 	action_detail_t action_detail;
+	action_detail.action = Retour_menu;
 	switch (Saisie::saisir_choix_ecran_club())
 	{
 	case 0:
@@ -63,6 +64,8 @@ action_detail_t Ecran::ecran_club(Club* p_club)
 		break;
 	case 6:
 		action_detail.action = Retour_menu;
+		break;
+	default:
 		break;
 	}
 

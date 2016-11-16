@@ -52,6 +52,7 @@ private:
 	friend class boost::serialization::access;
 	template<class Archive>
 	void serialize(Archive & ar, const unsigned int version) {
+	    (void)version;
 		ar & m_staff;
 		ar & m_entraineur;
 		ar & m_effectif;

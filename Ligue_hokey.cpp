@@ -1,4 +1,5 @@
 #include "Ligue_hokey.h"
+//#include "Utility\export.h"
 
 Ligue_hokey::Ligue_hokey()
 {
@@ -200,6 +201,11 @@ void Ligue_hokey::run()
 		case Avancer_temps:
 			avancer_temps();
 			break;
+			
+		default:
+			break;
+
+
 		}
 
 

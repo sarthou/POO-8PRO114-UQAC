@@ -31,9 +31,9 @@ Joueur* Saisie::saisir_joueur()
 	} while ((res != 'o') && (res != 'O') && (res != 'n') && (res != 'N'));
 
 	if((res == 'o') || (res == 'O'))
-		return new Joueur_auto(nom, prenom, age, ville, taille, poids);
+		return new Joueur_auto(nom, prenom, (uint8_t)age, ville, taille, poids);
 	else
-		return new Joueur_non_auto(nom, prenom, age, ville, taille, poids,0,0);
+		return new Joueur_non_auto(nom, prenom, (uint8_t)age, ville, taille, poids, 0, 0);
 }
 
 Entraineur* Saisie::saisir_entraineur()
