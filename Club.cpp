@@ -2,68 +2,34 @@
 
 Club::Club()
 {
-	m_nom = "";
 	m_couleur = "";
-	m_ville = "";
-	m_adresse = "";
-	m_histoire = "Pas d'information.";
-	m_entraineur = nullptr;
 }
 
-Club::Club(std::string p_nom, std::string p_couleur)
+Club::Club(std::string p_nom, std::string p_couleur) : Structure_administrative(p_nom)
 {
-	m_nom = p_nom;
 	m_couleur = p_couleur;
-	m_ville = "";
-	m_adresse = "";
-	m_histoire = "Pas d'information.";
-	m_entraineur = nullptr;
 }
 
-Club::Club(std::string p_nom, std::string p_couleur, Date p_date_creation)
+Club::Club(std::string p_nom, std::string p_couleur, Date p_date_creation) : Structure_administrative(p_nom, "", "", "", p_date_creation)
 {
-	m_nom = p_nom;
 	m_couleur = p_couleur;
-	m_ville = "";
-	m_adresse = "";
-	m_histoire = "Pas d'information.";
-	m_date_creation = p_date_creation;
-	m_entraineur = nullptr;
 }
 
-Club::Club(std::string p_nom, std::string p_couleur, Date p_date_creation, Stade p_stade, std::string p_ville, std::string p_adresse, std::string p_histoire)
+Club::Club(std::string p_nom, std::string p_couleur, Date p_date_creation, Stade p_stade, std::string p_ville, std::string p_adresse, std::string p_histoire) : Structure_administrative(p_nom, p_histoire, p_ville, p_adresse, p_date_creation)
 {
-	m_nom = p_nom;
 	m_couleur = p_couleur;
-	m_ville = p_ville;
-	m_adresse = p_adresse;
-	m_histoire = p_histoire;
-	m_date_creation = p_date_creation;
 	m_stade = p_stade;
-	m_entraineur = nullptr;
 }
 
-Club::Club(const Club& p_club)
+Club::Club(const Club& p_club) : Structure_administrative(p_club.get_nom(), p_club.get_histoire(), p_club.get_ville(), p_club.get_adresse(), p_club.get_date())
 {
-	m_nom = p_club.get_nom();
 	m_couleur = p_club.get_couleur();
-	m_ville = p_club.get_ville();
-	m_adresse = p_club.get_adresse();
-	m_histoire = p_club.get_histoire();
-	m_date_creation = p_club.get_date();
 	m_stade = p_club.get_stade();
-	m_entraineur = nullptr;
 }
 
 Club::~Club()
 {
-	for (std::vector<Joueur*>::iterator it = m_effectif.begin(); it != m_effectif.end(); ++it)
-		delete *it;
-
 	for (std::vector<Palmares*>::iterator it = m_palmares.begin(); it != m_palmares.end(); ++it)
-		delete *it;
-	
-	for (std::vector<Staff*>::iterator it = m_staff.begin(); it != m_staff.end(); ++it)
 		delete *it;
 
 	for (std::vector<Contrat*>::iterator it = m_contrats.begin(); it != m_contrats.end(); ++it)
@@ -71,23 +37,9 @@ Club::~Club()
 
 	for (std::vector<Rupture*>::iterator it = m_ruptures.begin(); it != m_ruptures.end(); ++it)
 		delete *it;
-
-	if(m_entraineur != nullptr)
-		delete m_entraineur;
 }
 
 /*GET*/
-
-std::vector<Staff*> Club::get_staff(role_t p_role)
-{
-	std::vector<Staff*> liste_staff;
-	for (std::vector<Staff*>::iterator it = m_staff.begin(); it != m_staff.end(); ++it)
-	{
-		if (p_role == (*it)->get_role())
-			liste_staff.push_back(*it);
-	}
-	return liste_staff;
-}
 
 std::vector<Palmares*> Club::get_palmares(titre_t p_titre)
 {
@@ -157,72 +109,6 @@ std::vector<Contrat*> Club::get_contrats(Club* p_club_libere)
 
 /*SET*/
 
-void Club::add_entraineur(Entraineur* p_entraineur)
-{
-	m_entraineur = p_entraineur;
-	add_staff(p_entraineur->get_nom(), p_entraineur->get_prenom(), p_entraineur->get_role());
-}
-
-void Club::add_entraineur(std::string p_nom, std::string p_lieu_obtention_grade)
-{
-	Entraineur* entraineur = new Entraineur(p_nom, p_lieu_obtention_grade);
-	add_entraineur(entraineur);
-}
-
-void Club::add_entraineur(std::string p_nom, std::string p_prenom, std::string p_lieu_obtention_grade)
-{
-	Entraineur* entraineur = new Entraineur(p_nom, p_prenom, p_lieu_obtention_grade);
-	add_entraineur(entraineur);
-}
-
-void Club::add_entraineur(std::string p_nom, std::string p_prenom, uint8_t p_age, std::string p_lieu_obtention_grade)
-{
-	Entraineur* entraineur = new Entraineur(p_nom, p_prenom, p_age, p_lieu_obtention_grade);
-	add_entraineur(entraineur);
-}
-
-void Club::add_staff(role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_role);
-	add_staff(tmp_staff);
-}
-
-void Club::add_staff(std::string p_nom, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_role);
-	add_staff(tmp_staff);
-}
-
-void Club::add_staff(std::string p_nom, std::string p_prenom, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_prenom, p_role);
-	add_staff(tmp_staff);
-}
-
-void Club::add_staff(std::string p_nom, std::string p_prenom, uint8_t p_age, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_prenom, p_age, p_role);
-	add_staff(tmp_staff);
-}
-
-void Club::add_joueur(std::string p_nom, std::string p_prenom)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom);
-	add_joueur(tmp_joueur);
-}
-
-void Club::add_joueur(std::string p_nom, std::string p_prenom, uint8_t p_age, float p_taille, float p_poids)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom, p_age, p_taille, p_poids);
-	add_joueur(tmp_joueur);
-}
-
-void Club::add_joueur(std::string p_nom, std::string p_prenom, uint8_t p_age, std::string p_ville, float p_taille, float p_poids)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom, p_age, p_ville, p_taille, p_poids);
-	add_joueur(tmp_joueur);
-}
-
 void Club::add_palmares(titre_t p_titre, std::string p_nom)
 {
 	Palmares* tmp_palmares = new Palmares(p_titre, p_nom);
@@ -269,98 +155,6 @@ void Club::add_rupture(Joueur* p_joueur, Club* p_club, float p_penelite, string 
 }
 
 /*remove*/
-
-void Club::remove_entraineur()
-{
-	delete m_entraineur;
-	remove_staff(entraineur);
-	m_entraineur = nullptr;
-}
-
-void Club::remove_staff(Staff* p_staff)
-{
-	for (std::vector<Staff*>::iterator it = m_staff.begin(); it != m_staff.end(); ++it)
-	{
-		if (*p_staff == **it)
-		{
-			Staff* tmp_staff = *it;
-			m_staff.erase(it);
-			delete tmp_staff;
-			break;
-		}
-	}
-}
-
-void Club::remove_staff(role_t p_role)
-{
-	for (std::vector<Staff*>::iterator it = m_staff.begin(); it != m_staff.end(); ++it)
-	{
-		if (p_role == (*it)->get_role())
-		{
-			Staff* tmp_staff = *it;
-			m_staff.erase(it);
-			delete tmp_staff;
-			break;
-		}
-	}
-}
-
-void Club::remove_staff(std::string p_nom, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_role);
-	remove_staff(tmp_staff);
-	delete tmp_staff;
-}
-
-void Club::remove_staff(std::string p_nom, std::string p_prenom, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_prenom, p_role);
-	remove_staff(tmp_staff);
-	delete tmp_staff;
-}
-
-void Club::remove_staff(std::string p_nom, std::string p_prenom, uint8_t p_age, role_t p_role)
-{
-	Staff* tmp_staff = new Staff(p_nom, p_prenom, p_age, p_role);
-	remove_staff(tmp_staff);
-	delete tmp_staff;
-}
-
-void Club::remove_joueur(Joueur* p_joueur, bool p_delete)
-{
-	for (std::vector<Joueur*>::iterator it = m_effectif.begin(); it != m_effectif.end(); ++it)
-	{
-		if (*p_joueur == **it)
-		{
-			Joueur* tmp_joueur = *it;
-			m_effectif.erase(it);
-			if(p_delete)
-				delete tmp_joueur;
-			break;
-		}
-	}
-}
-
-void Club::remove_joueur(std::string p_nom, std::string p_prenom)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom);
-	remove_joueur(tmp_joueur);
-	delete tmp_joueur;
-}
-
-void Club::remove_joueur(std::string p_nom, std::string p_prenom, uint8_t p_age, float p_taille, float p_poids)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom, p_age, p_taille, p_poids);
-	remove_joueur(tmp_joueur);
-	delete tmp_joueur;
-}
-
-void Club::remove_joueur(std::string p_nom, std::string p_prenom, uint8_t p_age, std::string p_ville, float p_taille, float p_poids)
-{
-	Joueur* tmp_joueur = new Joueur(p_nom, p_prenom, p_age, p_ville, p_taille, p_poids);
-	remove_joueur(tmp_joueur);
-	delete tmp_joueur;
-}
 
 void Club::remove_palmares(unsigned int index)
 {
@@ -411,7 +205,7 @@ std::vector<Club*> Club::get_list_without(std::vector<Club*> p_list, Club* p_clu
 	std::vector<Club*> tmp_list;
 	for (std::vector<Club*>::iterator it = p_list.begin(); it != p_list.end(); ++it)
 	{
-		if (**it != *p_club)
+		if (!(**it).estEgal(*p_club))
 			tmp_list.push_back(*it);
 	}
 	return tmp_list;
@@ -471,14 +265,13 @@ Club* Club::get_club_plus_titre(std::vector<Club*> p_clubs)
 	return club_titre;
 }
 
-
-Entraineur* Club::get_entraineur_titre(std::vector<Club*> p_clubs)
+Entraineur* Club::get_entraineur_titre(std::vector<Club*> p_club)
 {
 	Entraineur* enraineur_titre = nullptr;
 
-	if (p_clubs.size())
+	if (p_club.size())
 	{
-		for (std::vector<Club*>::iterator it = p_clubs.begin(); it != p_clubs.end(); ++it)
+		for (std::vector<Club*>::iterator it = p_club.begin(); it != p_club.end(); ++it)
 		{
 			Entraineur* tmp_entraineur = (*it)->get_entraineur();
 			if (tmp_entraineur != nullptr)
