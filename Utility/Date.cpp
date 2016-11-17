@@ -143,7 +143,7 @@ void Date::set_at_current_time(struct tm* p_date)
 
 bool Date::estEgal(Date b) const
 {
-	if ((m_date.tm_year == b.get_annee()) && (m_date.tm_mon == b.get_mois()) && (m_date.tm_mday == b.get_jour()))
+	if ((m_annee == b.get_annee()) && (m_mois == b.get_mois()) && (m_jour == b.get_jour()))
 		return true;
 	else
 		return false;
@@ -151,7 +151,7 @@ bool Date::estEgal(Date b) const
 
 bool Date::estSup(Date b) const
 {
-	if ((m_date.tm_year > b.get_annee()) && (m_date.tm_mon > b.get_mois()) && (m_date.tm_mday > b.get_jour()))
+	if ((m_annee > b.get_annee()) && (m_mois > b.get_mois()) && (m_jour > b.get_jour()))
 		return true;
 	else
 		return false;
@@ -159,7 +159,7 @@ bool Date::estSup(Date b) const
 
 bool Date::estInf(Date b) const
 {
-	if ((m_date.tm_year < b.get_annee()) && (m_date.tm_mon < b.get_mois()) && (m_date.tm_mday < b.get_jour()))
+	if ((m_annee < b.get_annee()) && (m_mois < b.get_mois()) && (m_jour < b.get_jour()))
 		return true;
 	else
 		return false;

@@ -106,7 +106,7 @@ void Joueur::remove_parcour(Parcours* p_parcours)
 {
 	for (std::vector<Parcours*>::iterator it = m_parcours.begin(); it != m_parcours.end(); ++it)
 	{
-		if (*p_parcours == **it)
+		if ((*p_parcours) == (*(*it)))
 		{
 			Parcours* tmp_parcour = *it;
 			m_parcours.erase(it);

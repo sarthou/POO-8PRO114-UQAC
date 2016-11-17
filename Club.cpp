@@ -167,7 +167,7 @@ void Club::remove_palmares(Palmares* p_palmares)
 {
 	for (std::vector<Palmares*>::iterator it = m_palmares.begin(); it != m_palmares.end(); ++it)
 	{
-		if (*p_palmares == **it)
+		if ((*p_palmares) == (*(*it)))
 		{
 			Palmares* tmp_palmares = *it;
 			m_palmares.erase(it);
@@ -201,12 +201,12 @@ void Club::remove_palmares(titre_t p_titre, std::string p_nom, int p_annee)
 /*
 *	STATIC
 */
-std::vector<Club*> Club::get_list_without(std::vector<Club*> p_list, Club* p_club)
+std::vector<Club*> Club::get_list_without(std::vector<Club*>& p_list, Club* p_club)
 {
 	std::vector<Club*> tmp_list;
 	for (std::vector<Club*>::iterator it = p_list.begin(); it != p_list.end(); ++it)
 	{
-		if (!(**it).estEgal(*p_club))
+		if ((*(*it)) != (*p_club))
 			tmp_list.push_back(*it);
 	}
 	return tmp_list;
@@ -250,7 +250,7 @@ int Club::effectuer_transfert(Joueur* p_joueur, Club* p_club_init, Club* p_club_
 		return -1;
 }
 
-Club* Club::get_club_plus_titre(std::vector<Club*> p_clubs)
+Club* Club::get_club_plus_titre(std::vector<Club*>& p_clubs)
 {
 	Club* club_titre = nullptr;
 	if (p_clubs.size())
@@ -259,14 +259,14 @@ Club* Club::get_club_plus_titre(std::vector<Club*> p_clubs)
 		{
 			if (club_titre == nullptr)
 				club_titre = *it;
-			else if (*club_titre < **it)
+			else if ((*club_titre) < (*(*it)))
 				club_titre = *it;
 		}
 	}
 	return club_titre;
 }
 
-Entraineur* Club::get_entraineur_titre(std::vector<Club*> p_club)
+Entraineur* Club::get_entraineur_titre(std::vector<Club*>& p_club)
 {
 	Entraineur* enraineur_titre = nullptr;
 
@@ -325,7 +325,7 @@ bool Club::operator>=(Club const& b) const
 *private functions
 */
 
-bool Club::estEgal(Club b) const
+bool Club::estEgal(Club const& b) const
 {
 	if ((m_nom == b.get_nom()) && (m_couleur == b.get_couleur()) && (m_ville == b.get_ville()) &&
 		(m_adresse == b.get_adresse()) && (m_histoire == b.get_histoire()) && (m_date_creation == b.get_date()))
@@ -334,7 +334,7 @@ bool Club::estEgal(Club b) const
 		return false;
 }
 
-bool Club::est_sup(Club b) const
+bool Club::est_sup(Club const& b) const
 {
 	if (m_palmares.size() > b.get_nb_palmares())
 		return true;
@@ -342,7 +342,7 @@ bool Club::est_sup(Club b) const
 		return false;
 }
 
-bool Club::est_inf(Club b) const
+bool Club::est_inf(Club const& b) const
 {
 	if (m_palmares.size() < b.get_nb_palmares())
 		return true;

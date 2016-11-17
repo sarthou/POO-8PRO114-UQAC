@@ -111,7 +111,7 @@ void Regroupement_sportif::remove_staff(Staff* p_staff)
 {
 	for (std::vector<Staff*>::iterator it = m_staff.begin(); it != m_staff.end(); ++it)
 	{
-		if (*p_staff == **it)
+		if ((*p_staff) == (*(*it)))
 		{
 			Staff* tmp_staff = *it;
 			m_staff.erase(it);
@@ -160,7 +160,7 @@ void Regroupement_sportif::remove_joueur(Joueur* p_joueur, bool p_delete)
 {
 	for (std::vector<Joueur*>::iterator it = m_effectif.begin(); it != m_effectif.end(); ++it)
 	{
-		if (*p_joueur == **it)
+		if ((*p_joueur) == (*(*it)))
 		{
 			Joueur* tmp_joueur = *it;
 			m_effectif.erase(it);

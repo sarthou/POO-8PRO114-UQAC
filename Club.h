@@ -59,11 +59,11 @@ public:
 	void remove_palmares(titre_t p_titre, string p_nom, Date p_date);
 	void remove_palmares(titre_t p_titre, string p_nom, int p_annee);
 
-	static std::vector<Club*> get_list_without(std::vector<Club*> p_list, Club* p_club);
+	static std::vector<Club*> get_list_without(std::vector<Club*>& p_list, Club* p_club);
 	static int effectuer_transfert(Joueur* p_joueur, Club* p_club_init, Club* p_club_destination, Contrat* p_contrat); //non auto
 	static int effectuer_transfert(Joueur* p_joueur, Club* p_club_init, Club* p_club_destination, Contrat* p_contrat, Rupture* p_rupture); //auto
-	static Club* get_club_plus_titre(std::vector<Club*> p_clubs);
-	static Entraineur* get_entraineur_titre(std::vector<Club*> p_clubs);
+	static Club* get_club_plus_titre(std::vector<Club*>& p_clubs);
+	static Entraineur* get_entraineur_titre(std::vector<Club*>& p_clubs);
 
 	bool operator==(Club const& b) const;
 	bool operator!=(Club const& b) const;
@@ -93,9 +93,9 @@ private:
 	std::vector<Contrat*> m_contrats;
 	std::vector<Rupture*> m_ruptures;
 
-	bool estEgal(Club b) const;
-	bool est_sup(Club b) const;
-	bool est_inf(Club b) const;
+	bool estEgal(Club const& b) const;
+	bool est_sup(Club const& b) const;
+	bool est_inf(Club const& b) const;
 };
 
 #endif

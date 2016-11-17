@@ -53,7 +53,7 @@ void Ligue_hokey::remove_club(Club* p_club)
 {
 	for (std::vector<Club*>::iterator it = m_clubs.begin(); it != m_clubs.end(); ++it)
 	{
-		if (*p_club == **it)
+		if ((*p_club) == (*(*it)))
 		{
 			Club* tmp_club = *it;
 			m_clubs.erase(it);

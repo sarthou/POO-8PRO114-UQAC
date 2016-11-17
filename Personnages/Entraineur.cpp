@@ -110,7 +110,7 @@ void Entraineur::remove_titre(Titre* p_titre)
 {
 	for (std::vector<Titre*>::iterator it = m_titres.begin(); it != m_titres.end(); ++it)
 	{
-		if (*p_titre == **it)
+		if ((*p_titre) == (*(*it)))
 		{
 			Titre* tmp_titre =  *it;
 			m_titres.erase(it);
