@@ -107,6 +107,30 @@ Periode Saisie::saisir_periode(Match p_match)
 	return Periode(duree, but_local, but_adverse);
 }
 
+Nego_vendeur* Saisie::saisir_nego_vendeur(Club* p_ref)
+{
+	system("CLS");
+	std::cout << "Negociateur vendeur" << std::endl;
+	int montant_min = saisir_int("Montant minimal de vente : ");
+	int montant_max = saisir_int("Montant miaximal de vente : ");
+	int duree = saisir_int("Duree maximale de la negociation (en ms) : ");
+	strategie_t strategie = Saisie::saisir_strategie();
+	system("CLS");
+	return new Nego_vendeur(p_ref, montant_min, montant_max, duree, strategie);
+}
+
+Nego_acheteur* Saisie::saisir_nego_acheteur(Club* p_ref)
+{
+	system("CLS");
+	std::cout << "Negociateur acheteur" << std::endl;
+	int montant_min = saisir_int("Montant minimal d'achat : ");
+	int montant_max = saisir_int("Montant miaximal d'achat : ");
+	int duree = saisir_int("Duree maximale de la negociation (en ms) : ");
+	strategie_t strategie = Saisie::saisir_strategie();
+	system("CLS");
+	return new Nego_acheteur(p_ref, montant_min, montant_max, duree, strategie);
+}
+
 /*
 *SAISIE ECRANS
 */
@@ -190,6 +214,32 @@ int Saisie::saisir_choix_ecran_entraineur(int nb_titre)
 	return choix;
 }
 
+strategie_t Saisie::saisir_strategie()
+{
+	std::cout << std::endl << std::endl << "Strategie : " << std::endl;
+	std::cout << "\t0 : lineaire" << std::endl;
+	std::cout << "\t1 : franche" << std::endl;
+	std::cout << "\t2 : prudente" << std::endl;
+	std::cout << "\t3 : arctan" << std::endl;
+	std::cout << "\t4 : poker" << std::endl;
+
+	int choix = -1;
+	do
+	{
+		std::cout << "Choix : ";
+		choix = saisi_int_secur();
+	} while ((choix < 0) || (choix > 4));
+
+	switch (choix)
+	{
+	case 0: return lineaire;
+	case 1: return franche;
+	case 2: return prudente;
+	case 3: return arctan;
+	case 4: return poker;
+	default: return lineaire;
+	}
+}
 
 /*UTILITY*/
 

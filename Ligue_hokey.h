@@ -9,7 +9,7 @@
 #include "Club.h"
 #include "Ecrans\Ecran.h"
 #include "Matchs\Rencontre.h"
-
+#include "Negociation\Simu_negociation.h"
 
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
@@ -53,6 +53,7 @@ private:
 	std::vector<Rencontre*> m_calendrier; 
 	action_detail_t m_next_action;
 	Club* club_a_etudier;
+	Simu_negociation m_simu;
 
 	void ajout_club();
 	void supprimer_club_a_etudier();
@@ -60,6 +61,8 @@ private:
 	void ajout_joueur();
 	void supprimer_joueur_a_etudier();
 	void effectuer_un_transfert();
+	void remplir_documents_rupture(Club* p_club_dest);
+	bool simuler_negociation(Club* p_club_dest);
 
 	void ajouter_entraineur();
 	void suprimer_entraineur();

@@ -68,26 +68,8 @@ void Ligue_hokey::effectuer_un_transfert()
 			Club* club_dest = Ecran::select_club(clubs_dest, true, "Clubs de destinations : ");
 			if (club_dest != nullptr)
 			{
-				int err = -1;
-
-				Contrat* contrat = Saisie::saisir_contrat();
-				Rupture* rupture = nullptr;
-
-				if (club_a_etudier->get_effectif_index(m_next_action.index)->est_autonome())
-				{
-					rupture = Saisie::saisir_rupture();
-					err = Club::effectuer_transfert(club_a_etudier->get_effectif_index(m_next_action.index), club_a_etudier, club_dest, contrat, rupture);
-				}
-				else
-					err = Club::effectuer_transfert(club_a_etudier->get_effectif_index(m_next_action.index), club_a_etudier, club_dest, contrat);
-
-				if (err)
-				{
-					std::cout << std::endl << "Ce joueur ne peut pas etre transfere." << std::endl;
-					system("PAUSE");
-				}
-				else
-					club_a_etudier = club_dest;
+				m_simu.simuler(club_a_etudier, club_dest);
+				remplir_documents_rupture(club_dest);
 				m_next_action.action = Examiner_club;
 
 			}
@@ -101,7 +83,30 @@ void Ligue_hokey::effectuer_un_transfert()
 			m_next_action.action = Examiner_joueur;
 		}
 	}
+}
 
+void Ligue_hokey::remplir_documents_rupture(Club* p_club_dest)
+{
+	int err = -1;
+
+	Contrat* contrat = Saisie::saisir_contrat();
+	Rupture* rupture = nullptr;
+
+	if (club_a_etudier->get_effectif_index(m_next_action.index)->est_autonome())
+	{
+		rupture = Saisie::saisir_rupture();
+		err = Club::effectuer_transfert(club_a_etudier->get_effectif_index(m_next_action.index), club_a_etudier, p_club_dest, contrat, rupture);
+	}
+	else
+		err = Club::effectuer_transfert(club_a_etudier->get_effectif_index(m_next_action.index), club_a_etudier, p_club_dest, contrat);
+
+	if (err)
+	{
+		std::cout << std::endl << "Ce joueur ne peut pas etre transfere." << std::endl;
+		system("PAUSE");
+	}
+	else
+		club_a_etudier = p_club_dest;
 }
 
 /*ENTRAINEUR*/

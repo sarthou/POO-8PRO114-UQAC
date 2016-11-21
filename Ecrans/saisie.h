@@ -24,6 +24,9 @@
 
 #include "..\infrastructure\Stade.h"
 
+#include "../Negociation/Nego_vendeur.h"
+#include "../Negociation/Nego_acheteur.h"
+
 #include "..\Club.h"
 
 class Saisie
@@ -41,11 +44,14 @@ public:
 	static Rupture* saisir_rupture();
 	static Reglement saisir_reglement();
 	static Periode saisir_periode(Match p_match);
+	static Nego_vendeur* saisir_nego_vendeur(Club* p_ref);
+	static Nego_acheteur* saisir_nego_acheteur(Club* p_ref);
 
 	static int saisir_choix_ecran_club();
 	static int saisir_choix_ecran_joueur(int nb_joueur);
 	static int saisir_choix_ecran_entraineur(int nb_titre);
 	static int saisir_choix_multiple(int nb_element, bool retour = true, string msg = " : selectionner");
+	static strategie_t saisir_strategie();
 
 	static Date saisir_date(string msg);
 	static int saisir_int(string msg);
