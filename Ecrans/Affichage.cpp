@@ -257,6 +257,28 @@ void Affichage::afficher_match(std::vector<Rencontre*> p_rencontres)
 	}
 }
 
+/* negociation*/
+
+void Affichage::afficher_message(Message* p_message)
+{
+	string nom = p_message->get_emetteur()->get_nom_representant();
+	switch (p_message->get_sujet())
+	{
+	case offre:
+		std::cout << "@" << nom << " | OFFRE  | " << p_message->get_montant() << std::endl;
+		break;
+	case acceptation:
+		std::cout << "@" << nom << " | ACCEPT | " << p_message->get_montant() << std::endl;
+		break;
+	case rejet:
+		std::cout << "@" << nom << " | REJET  | " << std::endl;
+		break;
+	case erreur:
+		std::cout << "@" << nom << " | ERREUR | " << std::endl;
+		break;
+	}
+}
+
 /*UTILITY*/
 
 std::string Affichage::date_to_str(Date p_date)

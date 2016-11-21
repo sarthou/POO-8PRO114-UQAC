@@ -21,6 +21,9 @@
 
 #include "..\Matchs\Rencontre.h"
 
+#include "../Negociation/Message.h"
+#include "../Negociation/Negociateur.h"
+
 #include "..\Club.h"
 
 class Affichage
@@ -64,6 +67,8 @@ public:
 	static int afficher_entraineur_complet(Entraineur* entraineur);
 
 	static void afficher_statistiques(Club* p_club_titre, Entraineur* p_enraineur_titre);
+
+	static void afficher_message(Message* p_message);
 
 	static std::string date_to_str(Date p_date);
 	static std::string role_to_str(role_t p_role);

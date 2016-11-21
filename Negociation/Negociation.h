@@ -19,8 +19,17 @@ public:
 
 	int recevoir_message(Message* p_message);
 
+	Negociateur* get_interlocuteur() { return m_interlocuteur; };
+	Message* get_reponse() { return m_reponse; };
+	sujet_t get_sujet() { return m_sujet_courant; };
+	int get_montant() { return m_montant_courant; };
+
+	void set_interlocuteur(Negociateur* p_interlocuteur) { m_interlocuteur = p_interlocuteur; };
+
 private:
 	Negociateur* m_instance;
+
+	Message* m_reponse;
 
 	int m_montant_courant;
 	sujet_t m_sujet_courant;
