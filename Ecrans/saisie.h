@@ -59,8 +59,18 @@ public:
 	static string saisir_string(string msg);
 	static void clear_buffers();
 
-	static int saisi_int_secur();
-	static float saisi_float_secur();
+	template <typename T>
+	static T saisi_secur()
+	{
+		T tmp = -1;
+		std::cin >> tmp;
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore();
+		}
+		return tmp;
+	}
 
 };
 

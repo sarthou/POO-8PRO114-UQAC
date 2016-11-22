@@ -316,7 +316,7 @@ int Saisie::saisir_int(string msg)
 	do
 	{
 		std::cout << msg;
-		valeur = saisi_int_secur();
+		valeur = saisi_secur<int>();
 	} while (valeur == -1);
 	std::cout << std::endl;
 
@@ -329,7 +329,7 @@ float Saisie::saisir_float(string msg)
 	do
 	{
 		std::cout << msg;
-		valeur = saisi_float_secur();
+		valeur = saisi_secur<float>();
 	} while (valeur == -1.);
 	std::cout << std::endl;
 
@@ -350,30 +350,4 @@ void Saisie::clear_buffers()
 {
 	std::cin.clear();
 	std::cin.ignore();
-}
-
-/*Securisation*/
-
-int Saisie::saisi_int_secur()
-{
-	int tmp = -1;
-	std::cin >> tmp;
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore();
-	}
-	return tmp;
-}
-
-float Saisie::saisi_float_secur()
-{
-	float tmp = -1.;
-	std::cin >> tmp;
-	if (std::cin.fail())
-	{
-		std::cin.clear();
-		std::cin.ignore();
-	}
-	return tmp;
 }
