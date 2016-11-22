@@ -40,9 +40,9 @@ public:
 	static Entraineur* saisir_entraineur();
 	static Titre* saisir_titre();
 	static Palmares* saisir_palmares();
-	static Contrat* saisir_contrat();
+	static Contrat* saisir_contrat(int p_montant = -1);
 	static Rupture* saisir_rupture();
-	static Reglement saisir_reglement();
+	static Reglement saisir_reglement(int p_montant);
 	static Periode saisir_periode(Match p_match);
 	static Nego_vendeur* saisir_nego_vendeur(Club* p_ref);
 	static Nego_acheteur* saisir_nego_acheteur(Club* p_ref);

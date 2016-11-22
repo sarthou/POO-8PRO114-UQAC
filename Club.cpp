@@ -52,39 +52,6 @@ std::vector<Palmares*> Club::get_palmares(titre_t p_titre)
 	return liste_staff;
 }
 
-std::vector<Palmares*> Club::get_palmares(std::string p_nom)
-{
-	std::vector<Palmares*> liste_staff;
-	for (std::vector<Palmares*>::iterator it = m_palmares.begin(); it != m_palmares.end(); ++it)
-	{
-		if (p_nom == (*it)->get_nom())
-			liste_staff.push_back(*it);
-	}
-	return liste_staff;
-}
-
-std::vector<Palmares*> Club::get_palmares(Date p_date)
-{
-	std::vector<Palmares*> liste_staff;
-	for (std::vector<Palmares*>::iterator it = m_palmares.begin(); it != m_palmares.end(); ++it)
-	{
-		if (p_date == (*it)->get_date())
-			liste_staff.push_back(*it);
-	}
-	return liste_staff;
-}
-
-std::vector<Palmares*> Club::get_palmares(int p_annee)
-{
-	std::vector<Palmares*> liste_staff;
-	for (std::vector<Palmares*>::iterator it = m_palmares.begin(); it != m_palmares.end(); ++it)
-	{
-		if (p_annee == (*it)->get_annee())
-			liste_staff.push_back(*it);
-	}
-	return liste_staff;
-}
-
 std::vector<Contrat*> Club::get_contrats(Joueur* p_joueur)
 {
 	std::vector<Contrat*> liste_contrat;

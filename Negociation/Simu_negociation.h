@@ -16,6 +16,8 @@ public:
 
 	bool simuler(Club* p_vendeur, Club* p_acheteur);
 
+	int get_montant_final() { return montant_final; };
+
 private:
 	Mutex mutex;
 	Nego_acheteur* m_acheteur;

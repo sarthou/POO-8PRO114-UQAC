@@ -68,8 +68,11 @@ void Ligue_hokey::effectuer_un_transfert()
 			Club* club_dest = Ecran::select_club(clubs_dest, true, "Clubs de destinations : ");
 			if (club_dest != nullptr)
 			{
-				if(m_simu.simuler(club_a_etudier, club_dest))
-					remplir_documents_rupture(club_dest);
+				if (m_simu.simuler(club_a_etudier, club_dest))
+				{
+					int tmp_montant = m_simu.get_montant_final();
+					remplir_documents_rupture(club_dest, tmp_montant);
+				}
 				else
 				{
 					std::cout << "La negociation n'a pas permis le transfert." << std::endl;
@@ -89,11 +92,11 @@ void Ligue_hokey::effectuer_un_transfert()
 	}
 }
 
-void Ligue_hokey::remplir_documents_rupture(Club* p_club_dest)
+void Ligue_hokey::remplir_documents_rupture(Club* p_club_dest, int p_montant)
 {
 	int err = -1;
 
-	Contrat* contrat = Saisie::saisir_contrat();
+	Contrat* contrat = Saisie::saisir_contrat(p_montant);
 	Rupture* rupture = nullptr;
 
 	if (club_a_etudier->get_effectif_index(m_next_action.index)->est_autonome())
@@ -230,18 +233,25 @@ void Ligue_hokey::jouer_prochain_match()
 
 	if (tmp_rencontre != nullptr)
 	{
-		
-		Match* tmp_match = new Match(tmp_rencontre->edit_club_local(), tmp_rencontre->edit_club_adverse());
-		tmp_match->set_equipe_locale(Ecran::ecran_equipe(tmp_rencontre->edit_club_local()));
-		tmp_match->set_equipe_adverse(Ecran::ecran_equipe(tmp_rencontre->edit_club_adverse()));
-		int choix;
-		do
+		if ((tmp_rencontre->edit_club_local()->get_nb_joueur() > 0) && (tmp_rencontre->edit_club_adverse()->get_nb_joueur() > 0))
 		{
-			system("CLS");
-			tmp_match->add_new_periode(Saisie::saisir_periode(*tmp_match));
-			choix = Saisie::saisir_choix_multiple(1, true, " : Jouer une autre periode");
-		} while (choix != 0);
-		tmp_rencontre->set_match(tmp_match);
+			Match* tmp_match = new Match(tmp_rencontre->edit_club_local(), tmp_rencontre->edit_club_adverse());
+			tmp_match->set_equipe_locale(Ecran::ecran_equipe(tmp_rencontre->edit_club_local()));
+			tmp_match->set_equipe_adverse(Ecran::ecran_equipe(tmp_rencontre->edit_club_adverse()));
+			int choix;
+			do
+			{
+				system("CLS");
+				tmp_match->add_new_periode(Saisie::saisir_periode(*tmp_match));
+				choix = Saisie::saisir_choix_multiple(1, true, " : Jouer une autre periode");
+			} while (choix != 0);
+			tmp_rencontre->set_match(tmp_match);
+		}
+		else
+		{
+			std::cout << "Pas assez de joueurs pour jouer le match." << std::endl;
+			system("PAUSE");
+		}
 	}
 	else
 	{

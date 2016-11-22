@@ -32,14 +32,12 @@ public:
 	Stade get_stade() const { return m_stade; };
 	std::vector<Palmares*> get_palmares() { return m_palmares; };
 	std::vector<Palmares*> get_palmares(titre_t p_titre);
-	std::vector<Palmares*> get_palmares(string p_nom);
-	std::vector<Palmares*> get_palmares(Date p_date);
-	std::vector<Palmares*> get_palmares(int p_annee);
 	unsigned int get_nb_palmares() const { return m_palmares.size(); };
 	std::vector<Contrat*> get_contrats() { return m_contrats; };
 	std::vector<Contrat*> get_contrats(Joueur* p_joueur);
 	std::vector<Contrat*> get_contrats(Club* p_club_libere);
 	Contrat* get_contrat_index(int p_index) { return m_contrats[p_index]; };
+	int get_nb_joueur() { return m_effectif.size(); };
 
 	void set_couleur(string p_couleur) { m_couleur = p_couleur; };
 	void set_stade(Stade p_stade) { m_stade = p_stade; };

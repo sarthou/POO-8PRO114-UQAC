@@ -65,11 +65,11 @@ Palmares* Saisie::saisir_palmares()
 	return new Palmares(autre_titre, nom, date);
 }
 
-Contrat* Saisie::saisir_contrat()
+Contrat* Saisie::saisir_contrat(int p_montant)
 {
 	Date date = saisir_date("Date du contrat : ");
 	int duree = saisir_int("Duree du contrat : ");
-	Reglement reglement = saisir_reglement();
+	Reglement reglement = saisir_reglement(p_montant);
 
 	return  new Contrat(nullptr, nullptr, date.get_date(), duree, reglement);
 }
@@ -85,13 +85,27 @@ Rupture* Saisie::saisir_rupture()
 	return  new Rupture(nullptr, nullptr, penalite, raison);
 }
 
-Reglement Saisie::saisir_reglement()
+Reglement Saisie::saisir_reglement(int p_montant)
 {
 	std::cout << std::endl << "Saisi du réglement avec l'ancien club :" << std::endl;
+	int seuil_en_vigueur;
+	float montant_transfert;
+
+	if (p_montant == -1)
+	{
+		seuil_en_vigueur = saisir_int("Seuil en vigueur : ");
+		montant_transfert = saisir_float("Montant du transfert : ");
+	}
+	else
+	{
+		seuil_en_vigueur = p_montant;
+		montant_transfert = (float)p_montant;
+		std::cout << "Seuil en vigueur : " << p_montant << std::endl;
+		std::cout << "Montant du transfert : " << p_montant << std::endl;
+	}
 	
-	float montant_transfert = saisir_float("Montant du transfert : ");
 	float montant_encaisse = saisir_float("Montant du encaisse : ");
-	int seuil_en_vigueur = saisir_int("Seuil en vigueur : ");
+	
 	clear_buffers();
 	string description_droits = saisir_string("Description des droits : ");
 	

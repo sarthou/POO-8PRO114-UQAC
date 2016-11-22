@@ -61,8 +61,7 @@ private:
 	void ajout_joueur();
 	void supprimer_joueur_a_etudier();
 	void effectuer_un_transfert();
-	void remplir_documents_rupture(Club* p_club_dest);
-	bool simuler_negociation(Club* p_club_dest);
+	void remplir_documents_rupture(Club* p_club_dest, int p_montant = -1);
 
 	void ajouter_entraineur();
 	void suprimer_entraineur();
