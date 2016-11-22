@@ -14,7 +14,7 @@ public:
 	Simu_negociation();
 	~Simu_negociation();
 
-	void simuler(Club* p_vendeur, Club* p_acheteur);
+	bool simuler(Club* p_vendeur, Club* p_acheteur);
 
 private:
 	Mutex mutex;
@@ -25,6 +25,8 @@ private:
 	HANDLE* m_threads;
 	DWORD* m_id_thread_vendeur;
 	DWORD* m_id_thread_acheteur;
+
+	int montant_final;
 };
 
 #endif

@@ -32,6 +32,8 @@ public:
 	virtual void negocier() = 0;
 
 	std::string get_nom_representant() { return m_representant->get_nom(); };
+	sujet_t get_sujet() { return m_negociation.get_sujet(); };
+	int get_montant() { return m_negociation.get_montant(); };
 	void set_mutex(Mutex* p_mutex) { m_mutex = p_mutex; };
 
 protected:

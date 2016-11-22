@@ -11,6 +11,8 @@ Simu_negociation::Simu_negociation()
 
 	m_id_thread_vendeur = new DWORD();
 	m_id_thread_acheteur = new DWORD();
+
+	montant_final = -1;
 }
 
 Simu_negociation::~Simu_negociation()
@@ -42,7 +44,7 @@ DWORD WINAPI thread_acheteur(LPVOID p_acheteur)
 	return 0;
 }
 
-void Simu_negociation::simuler(Club* p_vendeur, Club* p_acheteur)
+bool Simu_negociation::simuler(Club* p_vendeur, Club* p_acheteur)
 {
 	m_acheteur = Saisie::saisir_nego_acheteur(p_acheteur);
 	m_vendeur = Saisie::saisir_nego_vendeur(p_vendeur);
@@ -56,8 +58,19 @@ void Simu_negociation::simuler(Club* p_vendeur, Club* p_acheteur)
 
 	WaitForMultipleObjects(m_nb_thread, m_threads, true, INFINITE);
 
+	bool concluant = false;
+	if ((m_acheteur->get_sujet() == acceptation) && (m_vendeur->get_sujet() == acceptation) && (m_vendeur->get_montant() == m_acheteur->get_montant()))
+	{
+		concluant = true;
+		montant_final = m_vendeur->get_montant();
+	}
+	else
+		montant_final = -1;
+
 	delete m_acheteur;
 	m_acheteur = nullptr;
 	delete m_vendeur;
 	m_vendeur = nullptr;
+
+	return concluant;
 }

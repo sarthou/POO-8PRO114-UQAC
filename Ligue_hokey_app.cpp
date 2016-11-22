@@ -68,10 +68,14 @@ void Ligue_hokey::effectuer_un_transfert()
 			Club* club_dest = Ecran::select_club(clubs_dest, true, "Clubs de destinations : ");
 			if (club_dest != nullptr)
 			{
-				m_simu.simuler(club_a_etudier, club_dest);
-				remplir_documents_rupture(club_dest);
+				if(m_simu.simuler(club_a_etudier, club_dest))
+					remplir_documents_rupture(club_dest);
+				else
+				{
+					std::cout << "La negociation n'a pas permis le transfert." << std::endl;
+					system("PAUSE");
+				}
 				m_next_action.action = Examiner_club;
-
 			}
 			else
 				m_next_action.action = Examiner_joueur;
