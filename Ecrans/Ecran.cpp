@@ -9,7 +9,7 @@ action_detail_t Ecran::menu(std::vector<Club*> p_club)
 	do
 	{
 		std::cout << "Choix : ";
-		choix = Saisie::saisi_int_secur();
+		choix = Saisie::saisi_secur<int>();
 	} while ((choix < 0) || (choix > nb_club+4));
 
 	action_detail_t action_detail;
@@ -160,7 +160,7 @@ action_detail_t Ecran::ecran_rencontre()
 	do
 	{
 		std::cout << "Choix : ";
-		choix = Saisie::saisi_int_secur();
+		choix = Saisie::saisi_secur<int>();
 	} while ((choix < 0) || (choix > 4));
 
 	action_detail_t action_detail;

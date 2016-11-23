@@ -165,7 +165,7 @@ int Saisie::saisir_choix_ecran_club()
 	do
 	{
 		std::cout << "Choix : ";
-		choix = saisi_int_secur();
+		choix = saisi_secur<int>();
 	} while ((choix < 0) || (choix > 6));
 
 	return choix;
@@ -183,7 +183,7 @@ int Saisie::saisir_choix_ecran_joueur(int nb_joueur)
 	do
 	{
 		std::cout << "Choix : ";
-		choix = saisi_int_secur();
+		choix = saisi_secur<int>();
 	} while ((choix < 0) || (choix > nb_joueur));
 
 	int choix2 = -1;
@@ -197,7 +197,7 @@ int Saisie::saisir_choix_ecran_joueur(int nb_joueur)
 		do
 		{
 			std::cout << "Choix : ";
-			choix2 = saisi_int_secur();
+			choix2 = saisi_secur<int>();
 		} while ((choix2 < 0) || (choix2 > 2));
 		if (choix2 == 2)
 			choix = -choix;
@@ -222,7 +222,7 @@ int Saisie::saisir_choix_ecran_entraineur(int nb_titre)
 	do
 	{
 		std::cout << "Choix : ";
-		choix = saisi_int_secur();
+		choix = saisi_secur<int>();
 	} while ((choix < 0) || (choix > nb_titre +2));
 
 	return choix;
@@ -241,7 +241,7 @@ strategie_t Saisie::saisir_strategie()
 	do
 	{
 		std::cout << "Choix : ";
-		choix = saisi_int_secur();
+		choix = saisi_secur<int>();
 	} while ((choix < 0) || (choix > 4));
 
 	switch (choix)
@@ -275,7 +275,7 @@ int Saisie::saisir_choix_multiple(int nb_element, bool retour, string msg )
 	do
 	{
 		std::cout << "Choix : ";
-		choix = saisi_int_secur();
+		choix = saisi_secur<int>();
 	} while ((((choix < 1) || (choix > nb_element)) && (retour == false)) || (((choix < 0) || (choix > nb_element)) && (retour == true)));
 
 	return choix;
@@ -288,21 +288,21 @@ Date Saisie::saisir_date(string msg)
 	do
 	{
 		std::cout << "\tannee ";
-		annee = saisi_int_secur();
+		annee = saisi_secur<int>();
 	} while ((annee > 9999) || (annee < 0));
 
 	int mois = -1;
 	do
 	{
 		std::cout << "\tmois ";
-		mois = saisi_int_secur();
+		mois = saisi_secur<int>();
 	} while ((mois > 12) || (mois < 1));
 
 	int jour = -1;
 	do
 	{
 		std::cout << "\tjour ";
-		jour =saisi_int_secur();
+		jour =saisi_secur<int>();
 	} while ((jour > 31) || (jour < 1));
 
 	std::cout << std::endl;
