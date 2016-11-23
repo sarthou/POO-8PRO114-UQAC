@@ -24,6 +24,7 @@ void Negociateur::poster_message(Message* p_message)
 void Negociateur::start_negociation()
 {
 	m_debut_negociation = clock();
+	m_fin_negociation = m_debut_negociation;
 }
 
 float Negociateur::temps_courant()
@@ -50,6 +51,27 @@ void Negociateur::calcul_montant_courant()
 	case poker: m_montant_courant = strategie_poker(); break;
 	default: m_montant_courant = strategie_lineaire(); break;
 	}
+}
+
+std::vector<int> Negociateur::get_simulation(float time_end, float step)
+{
+	int montant = 0;
+	std::vector<int> montants;
+
+	for (float t = 0; t < time_end; t = t + step)
+	{
+		switch (m_strategie)
+		{
+		case lineaire: montant = strategie_lineaire(t); break;
+		case prudente: montant = strategie_prudente(t); break;
+		case franche: montant = strategie_franche(t); break;
+		case arctan: montant = strategie_arctan(t); break;
+		case poker: montant = strategie_poker(t); break;
+		default: montant = strategie_lineaire(t); break;
+		}
+		montants.push_back(montant);
+	}
+	return(montants);
 }
 
 void Negociateur::proposer()

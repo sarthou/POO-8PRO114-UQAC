@@ -46,6 +46,18 @@ DWORD WINAPI thread_acheteur(LPVOID p_acheteur)
 
 bool Simu_negociation::simuler(Club* p_vendeur, Club* p_acheteur)
 {
+	if (m_acheteur != nullptr)
+	{
+		delete m_acheteur;
+		m_acheteur = nullptr;
+	}
+
+	if (m_vendeur != nullptr)
+	{
+		delete m_vendeur;
+		m_vendeur = nullptr;
+	}
+	
 	m_acheteur = Saisie::saisir_nego_acheteur(p_acheteur);
 	m_vendeur = Saisie::saisir_nego_vendeur(p_vendeur);
 	m_acheteur->set_interlocuteur(m_vendeur);
@@ -67,10 +79,21 @@ bool Simu_negociation::simuler(Club* p_vendeur, Club* p_acheteur)
 	else
 		montant_final = -1;
 
-	delete m_acheteur;
-	m_acheteur = nullptr;
-	delete m_vendeur;
-	m_vendeur = nullptr;
-
 	return concluant;
+}
+
+void Simu_negociation::plot()
+{
+	std::ofstream file("simu.txt");
+
+	float t = min(m_vendeur->get_duree_nego(), m_acheteur->get_duree_nego());
+	float step = t / 1000;
+	std::vector<int>montants_vendeur = m_vendeur->get_simulation(t, step);
+	std::vector<int>montants_acheteur = m_acheteur->get_simulation(t, step);
+
+	int size = min(montants_vendeur.size(), montants_acheteur.size());
+	for(int i = 0; i < size; i++)
+		file << i*step << " " << montants_vendeur[i] << " " << montants_acheteur[i] << std::endl;
+
+	std::system("\"python.exe\" ../src/script.py ");
 }

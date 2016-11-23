@@ -7,6 +7,7 @@
 #include "Nego_acheteur.h"
 #include "..\Utility\Mutex.h"
 #include "../Ecrans/saisie.h"
+#include <fstream>
 
 class Simu_negociation
 {
@@ -15,6 +16,7 @@ public:
 	~Simu_negociation();
 
 	bool simuler(Club* p_vendeur, Club* p_acheteur);
+	void plot();
 
 	int get_montant_final() { return montant_final; };
 

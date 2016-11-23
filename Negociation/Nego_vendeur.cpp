@@ -30,33 +30,48 @@ void Nego_vendeur::negocier()
 	} while (!stop);
 }
 
-int Nego_vendeur::strategie_lineaire()
+int Nego_vendeur::strategie_lineaire(float t)
 {
+	if (t == -1)
+		t = temps_courant();
+	
 	int b = m_montant_max;
 	float a = (m_montant_min - m_montant_max) / (float)m_duree_negociation;
-	return (int)(a*temps_courant() + b);
+	return (int)(a*t + b);
 }
 
-int Nego_vendeur::strategie_franche()
+int Nego_vendeur::strategie_franche(float t)
 {
+	if (t == -1)
+		t = temps_courant();
+	
 	float b = (m_montant_min - m_montant_max / (float)(m_duree_negociation + 1)) * ((m_duree_negociation + 1) / (float)m_duree_negociation);
 	float a = m_montant_max - b;
-	return (int)(a/(temps_courant() + 1) + b);
+	return (int)(a/(t + 1) + b);
 }
 
-int Nego_vendeur::strategie_prudente()
+int Nego_vendeur::strategie_prudente(float t)
 {
+	if (t == -1)
+		t = temps_courant();
+	
 	return 0;
 }
 
-int Nego_vendeur::strategie_arctan()
+int Nego_vendeur::strategie_arctan(float t)
 {
+	if (t == -1)
+		t = temps_courant();
+	
 	return 0;
 }
 
-int Nego_vendeur::strategie_poker()
+int Nego_vendeur::strategie_poker(float t)
 {
-	if (temps_courant() >= (int)(0.9*m_duree_negociation))
+	if (t == -1)
+		t = temps_courant();
+	
+	if (t >= (int)(0.9*m_duree_negociation))
 		return m_montant_min;
 	else
 		return m_montant_max;
@@ -65,6 +80,7 @@ int Nego_vendeur::strategie_poker()
 bool Nego_vendeur::traiter_message()
 {
 	calcul_montant_courant();
+	m_fin_negociation = clock();
 	if (m_negociation.get_sujet() == rejet)
 		return false;
 	else if (m_negociation.get_sujet() == erreur)

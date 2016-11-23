@@ -16,11 +16,11 @@ public:
 	void set_interlocuteur(Negociateur* p_interlocuteur) { m_negociation.set_interlocuteur(p_interlocuteur); };
 
 private:
-	int strategie_lineaire();
-	int strategie_franche();
-	int strategie_prudente();
-	int strategie_arctan();
-	int strategie_poker();
+	int strategie_lineaire(float t = -1);
+	int strategie_franche(float t = -1);
+	int strategie_prudente(float t = -1);
+	int strategie_arctan(float t = -1);
+	int strategie_poker(float t = -1);
 
 	bool traiter_message();
 };

@@ -68,7 +68,11 @@ void Ligue_hokey::effectuer_un_transfert()
 			Club* club_dest = Ecran::select_club(clubs_dest, true, "Clubs de destinations : ");
 			if (club_dest != nullptr)
 			{
-				if (m_simu.simuler(club_a_etudier, club_dest))
+				bool simu_ok = m_simu.simuler(club_a_etudier, club_dest);
+				
+				std::cout << "Fermer le graphique pour continuer." << std::endl;
+				m_simu.plot();
+				if (simu_ok)
 				{
 					int tmp_montant = m_simu.get_montant_final();
 					remplir_documents_rupture(club_dest, tmp_montant);
