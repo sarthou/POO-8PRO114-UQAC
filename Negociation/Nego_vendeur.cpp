@@ -45,9 +45,7 @@ int Nego_vendeur::strategie_franche(float t)
 	if (t == -1)
 		t = temps_courant();
 	
-	float b = (m_montant_min - m_montant_max / (float)(m_duree_negociation + 1)) * ((m_duree_negociation + 1) / (float)m_duree_negociation);
-	float a = m_montant_max - b;
-	return (int)(a/(t + 1) + b);
+	return (int)((m_montant_max - m_montant_min)*(exp(-t / (m_duree_negociation / 5))) + m_montant_min);
 }
 
 int Nego_vendeur::strategie_prudente(float t)
@@ -55,7 +53,7 @@ int Nego_vendeur::strategie_prudente(float t)
 	if (t == -1)
 		t = temps_courant();
 	
-	return 0;
+	return (int)((m_montant_max - m_montant_min)*(1 - exp((t - m_duree_negociation) / (m_duree_negociation / 5))) + m_montant_min);
 }
 
 int Nego_vendeur::strategie_arctan(float t)
@@ -63,7 +61,7 @@ int Nego_vendeur::strategie_arctan(float t)
 	if (t == -1)
 		t = temps_courant();
 	
-	return 0;
+	return m_montant_min + ((atan((m_duree_negociation - t) / (m_duree_negociation / 20.) - 10) - atan(-10)) / (atan(10) - atan(-10)))*(m_montant_max - m_montant_min);
 }
 
 int Nego_vendeur::strategie_poker(float t)
